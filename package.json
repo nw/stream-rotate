@@ -2,7 +2,7 @@
     "name" : "stream-rotate",
     "description" : "write stream rotator",
     "homepage": "http://github.com/safeinstance/stream-rotate",
-    "version" : "0.0.2",
+    "version" : "0.0.3",
     "author" : "Nathan White <nw@nwhite.net> (http://nw.is)",
     "main" : "./index",
     "keywords" : [ "stream", "log", "rotate" ],
