@@ -1,17 +1,17 @@
 {
     "name" : "stream-rotate",
     "description" : "write stream rotator",
-    "homepage": "http://github.com/safeinstance/stream-rotate",
-    "version" : "0.0.3",
+    "homepage": "http://github.com/nw/stream-rotate",
+    "version" : "0.0.4",
     "author" : "Nathan White <nw@nwhite.net> (http://nw.is)",
     "main" : "./index",
     "keywords" : [ "stream", "log", "rotate" ],
     "repository" : {
         "type" : "git",
-        "url" : "http://github.com/safeinstance/stream-rotate.git"
+        "url" : "http://github.com/nw/stream-rotate.git"
     },
     "bugs": {
-      "url": "http://github.com/safeinstance/stream-rotate/issues/"
+      "url": "http://github.com/nw/stream-rotate/issues/"
     },
     "dependencies": {
       "mkdirp": "0.3.5",
