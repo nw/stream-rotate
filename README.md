@@ -79,6 +79,7 @@ When a current log file is no longer valid (too big or old) then it is moved. Th
   - `flags`: {String} (default: 'a')
   - `encoding`: {Mixed} (default: null)
   - `mode`: {Number} (default: 0600)
+  - `ts_format`: {String} (default: 'DDMMYY_HHmmss')
 
 ##### path
   Directory to store log files.
@@ -138,6 +139,8 @@ If set it should be a {Number} in seconds.
 ##### mode
   Set the permissions on the fs.writestream. default = 0600
   
+##### ts_format
+  Set the timestamp format for rotated files. default = 'DDMMYY_HHmmss'. See [moment](http://momentjs.com/docs/#/displaying/format/) for more options.
 
 ## TODO
 
