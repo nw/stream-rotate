@@ -19,7 +19,8 @@
     },
     "devDependencies" : {
         "mocha": "1.9.0",
-        "should": "1.2.2"
+        "should": "1.2.2",
+        "randomstring": "1.1.4"
     },
     "license": [{
         "type": "MIT",
