@@ -77,7 +77,7 @@ function executeTest(self,timeout,filepath,testType,testSize,bufferSize,iteratio
                 var totalWriten = ( countWrites * bufferSize ) + 200;
                 if(testType!=='retention')
                     totalWriten.should.equal(results.totalSize);
-                if(testType==='retentin')
+                if(testType==='retention')
                     files.length == retention + 1;
                 if(testType==='daily')
                     timeSpread.should.be.greaterThan(86400000);
