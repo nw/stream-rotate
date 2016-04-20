@@ -2,6 +2,7 @@ var should = require('should');
 var randomstring = require('randomstring');
 var moment = require('moment');
 var fs = require('fs');
+var fspath = require('path');
 var rotator = require('../lib/stream-rotate');
 
 describe('Rotator', function(){
@@ -41,7 +42,7 @@ describe('Rotator', function(){
 function executeTest(self,timeout,filepath,testType,testSize,bufferSize,iterations,retention,offset,done){
     self.timeout(timeout);
     var filebase = testType + '-rotator';
-    var filename = filepath + filebase + '.log'; 
+    var filename = fspath.join(filepath , filebase + '.log'); 
     var stat;
     deleteFolderRecursive(filepath);
     fs.mkdirSync(filepath);
@@ -101,7 +102,7 @@ function executeTest(self,timeout,filepath,testType,testSize,bufferSize,iteratio
 function deleteFolderRecursive(path) {
     if( fs.existsSync(path) ) {
         fs.readdirSync(path).forEach(function(file,index){
-            var curPath = path + "/" + file;
+            var curPath = fspath.join(path , file);
             if(fs.lstatSync(curPath).isDirectory()) { // recurse
                 deleteFolderRecursive(curPath);
             } else { // delete file
