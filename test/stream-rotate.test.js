@@ -68,32 +68,31 @@ function executeTest(self,timeout,filepath,testType,testSize,bufferSize,iteratio
     var ii = 0;
     var countWrites = 0;
     function work(){
-        while(true){
-            ii++;
-            if(ii>iterations){
-                var files = fs.readdirSync(filepath);
-                var results = analyzeFiles(filepath,files);
-                results.maxSize.should.be.lessThan(testSize+1);
-                var timeSpread = results.latest - results.earliest;
-                var totalWriten = ( countWrites * bufferSize ) + 200;
-                if(testType!=='retention')
-                    totalWriten.should.equal(results.totalSize);
-                if(testType==='retention')
-                    files.length == retention + 1;
-                if(testType==='daily')
-                    timeSpread.should.be.greaterThan(86400000);
-                if(testType==='hourly')
-                    timeSpread.should.be.greaterThan(360000);
-                if(testType==='minutely')
-                    timeSpread.should.be.greaterThan(60000);
-                if(testType==='secondly')
-                    timeSpread.should.be.greaterThan(1000);
-                return done();
-            }
-            var rc = r.write(randomstring.generate(bufferSize));
-            countWrites++;
-            return setTimeout(work,10);
+        ii++;
+        if(ii>iterations){
+            r.stream.end();
+            var files = fs.readdirSync(filepath);
+            var results = analyzeFiles(filepath,files);
+            results.maxSize.should.be.lessThan(testSize+1);
+            var timeSpread = results.latest - results.earliest;
+            var totalWriten = ( countWrites * bufferSize ) + 200;
+            if(testType!=='retention')
+                totalWriten.should.equal(results.totalSize);
+            if(testType==='retention')
+                files.length == retention + 1;
+            if(testType==='daily')
+                timeSpread.should.be.greaterThan(86400000);
+            if(testType==='hourly')
+                timeSpread.should.be.greaterThan(360000);
+            if(testType==='minutely')
+                timeSpread.should.be.greaterThan(60000);
+            if(testType==='secondly')
+                timeSpread.should.be.greaterThan(1000);
+            return done();
         }
+        var rc = r.write(randomstring.generate(bufferSize));
+        countWrites++;
+        return setTimeout(work,10);
     }
     setTimeout(work,10);
 
