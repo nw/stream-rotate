@@ -80,6 +80,7 @@ When a current log file is no longer valid (too big or old) then it is moved. Th
   - `encoding`: {Mixed} (default: null)
   - `mode`: {Number} (default: 0600)
   - `ts_format`: {String} (default: 'DDMMYY_HHmmss')
+  - `boundary`: {String} (default:null choices:['daily','hourly','minutely','secondly'])
 
 ##### path
   Directory to store log files.
@@ -141,6 +142,9 @@ If set it should be a {Number} in seconds.
   
 ##### ts_format
   Set the timestamp format for rotated files. default = 'DDMMYY_HHmmss'. See [moment](http://momentjs.com/docs/#/displaying/format/) for more options.
+  
+##### boundary
+  Set the rotation to time boundary mode.  Daily will rotate at midnight, hourly at 0 minutes, etc.
 
 ## TODO
 
