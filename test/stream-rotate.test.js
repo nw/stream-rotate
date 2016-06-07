@@ -72,6 +72,41 @@ describe('Rotator', function(){
     it('should rotate secondly', function(done){
         executeTest(this,10000,path,'secondly',100000,300,200,100,2,done); 
     });
+    
+    it('should not delete previous content', function(done){
+        fs.mkdirSync(path);
+        fs.writeFileSync(fspath.join(path,'notdelete.log'),'abcdefg');
+        var options = {
+            path: path,
+            name: 'notdelete.log',
+            freq: '1d',
+            retention: 3,
+            size: 1000000,
+            boundary: 'daily'
+        };
+        var r = new rotator(options);
+        r.on('open', function(x){
+            r.write("1234567890");
+            r.close();
+        });
+        r.on('close', function(xx){
+            setTimeout(function(){
+                var r2 = new rotator(options);
+                r2.on('close', function(x){
+                var rc = analyzeFiles(path);
+                //console.log(rc);
+                (30).should.equal(rc.totalSize); 
+                done();
+                });
+                r2.on('open', function(x){
+                    r2.write("1234567890123");
+                    r2.close();
+                });
+                
+            },0);
+        });
+
+    });
 
 });
 
@@ -190,6 +225,8 @@ function analyzeFiles(path){
         totalSize += stat.size;
         latest = Math.max(latest,moment(stat.mtime));
         earliest = Math.min(earliest,moment(stat.mtime));
+        //var t = fs.readFileSync(path+file,'utf8');
+        //console.log(t);
     });
     return {
         earliest:earliest,
